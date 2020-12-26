@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import Head from "next/head";
 import { AppProps } from "next/app";
-import { ThemeProvider } from "@material-ui/core/styles";
+import AppThemeProvider from "../src/theme/ThemeProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import theme from "../src/theme";
+import "../src/styles/global.css";
 
 export default function App(props: AppProps): Record<string, unknown> {
   const { Component, pageProps } = props;
@@ -24,10 +24,10 @@ export default function App(props: AppProps): Record<string, unknown> {
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
       </Head>
-      <ThemeProvider theme={theme}>
+      <AppThemeProvider>
         <CssBaseline />
         <Component {...pageProps} />
-      </ThemeProvider>
+      </AppThemeProvider>
     </>
   );
 }
