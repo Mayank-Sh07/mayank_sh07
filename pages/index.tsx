@@ -1,111 +1,110 @@
 import Particles from "react-tsparticles";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
+import Home from "../src/components/Home";
 
-const useStyles = makeStyles((theme) => ({
-  landingFrame: {
-    backgroundColor: theme.palette.primary.dark,
+const useStyles = makeStyles({
+  particleContainer: {
     height: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "-20px",
+    position: "absolute",
+    top: 0,
+    zIndex: -1,
   },
-}));
+});
 
 export default function LandingPage(): JSX.Element {
+  const theme = useTheme();
   const classes = useStyles();
   if (process.browser) {
     require("pathseg");
   }
   return (
     <>
-      <Particles
-        height='100vh'
-        options={{
-          background: {
-            color: {
-              value: "#282c34",
+      <Container
+        disableGutters
+        maxWidth={false}
+        className={classes.particleContainer}
+      >
+        <Particles
+          style={{ height: "inherit" }}
+          options={{
+            background: {
+              color: {
+                value: theme.palette.primary.main,
+              },
             },
-          },
-          fpsLimit: 60,
-          interactivity: {
-            detectsOn: "canvas",
-            events: {
-              onClick: {
-                enable: true,
-                mode: "push",
+            fpsLimit: 60,
+            interactivity: {
+              detectsOn: "canvas",
+              events: {
+                onClick: {
+                  enable: true,
+                  mode: "push",
+                },
+                onHover: {
+                  enable: true,
+                  mode: "grab",
+                },
+                resize: true,
               },
-              onHover: {
-                enable: true,
-                mode: "grab",
+              modes: {
+                push: {
+                  quantity: 2,
+                },
+                grab: {
+                  distance: 120,
+                  duration: 0.4,
+                },
               },
-              resize: true,
             },
-            modes: {
-              bubble: {
-                distance: 400,
-                duration: 2,
-                opacity: 0.8,
-                size: 40,
+            particles: {
+              color: {
+                value: theme.palette.secondary.main,
               },
-              push: {
-                quantity: 2,
-              },
-              grab: {
+              links: {
+                color: theme.palette.secondary.light,
                 distance: 120,
-                duration: 0.4,
-              },
-            },
-          },
-          particles: {
-            color: {
-              value: "#ffffff",
-            },
-            links: {
-              color: "#ffffff",
-              distance: 80,
-              enable: true,
-              opacity: 0.5,
-              width: 1,
-              frequency: 1,
-            },
-            collisions: {
-              enable: true,
-            },
-            move: {
-              direction: "none",
-              enable: true,
-              outMode: "out",
-              random: false,
-              speed: 3,
-              straight: false,
-            },
-            number: {
-              density: {
                 enable: true,
-                value_area: 800,
-                factor: 1000,
+                opacity: 0.5,
+                width: 1,
+                frequency: 1,
               },
-              value: 200,
-              limit: 220,
+              collisions: {
+                enable: true,
+              },
+              move: {
+                direction: "none",
+                enable: true,
+                outMode: "out",
+                random: false,
+                speed: 3,
+                straight: false,
+              },
+              number: {
+                density: {
+                  enable: true,
+                  value_area: 800,
+                  factor: 1000,
+                },
+                value: 120,
+                limit: 180,
+              },
+              opacity: {
+                value: 0.5,
+              },
+              shape: {
+                type: "triangle",
+              },
+              size: {
+                random: true,
+                value: 5,
+              },
             },
-            opacity: {
-              value: 0.5,
-            },
-            shape: {
-              type: "triangle",
-            },
-            size: {
-              random: true,
-              value: 5,
-            },
-          },
-          detectRetina: true,
-        }}
-      />
-      <Container className={classes.landingFrame}>Hello</Container>
+            detectRetina: true,
+          }}
+        />
+      </Container>
+      <Home />
     </>
   );
 }
