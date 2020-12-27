@@ -8,7 +8,8 @@ const useStyles = makeStyles({
     height: "100vh",
     position: "absolute",
     top: 0,
-    zIndex: -1,
+    zIndex: 200,
+    pointerEvents: "none",
   },
 });
 
@@ -63,9 +64,9 @@ export default function LandingPage(): JSX.Element {
               },
               links: {
                 color: theme.palette.secondary.light,
-                distance: 120,
+                distance: 100,
                 enable: true,
-                opacity: 0.5,
+                opacity: 0.4,
                 width: 1,
                 frequency: 1,
               },
@@ -77,7 +78,7 @@ export default function LandingPage(): JSX.Element {
                 enable: true,
                 outMode: "out",
                 random: false,
-                speed: 3,
+                speed: 1,
                 straight: false,
               },
               number: {
@@ -86,8 +87,8 @@ export default function LandingPage(): JSX.Element {
                   value_area: 800,
                   factor: 1000,
                 },
-                value: 120,
-                limit: 180,
+                value: 100,
+                limit: 110,
               },
               opacity: {
                 value: 0.5,
