@@ -13,7 +13,9 @@ let theme = createMuiTheme({
   typography: {
     button: {
       textTransform: "none",
+      fontWeight: 400,
     },
+    fontFamily: ["Jost", "sans-serif"].join(","),
   },
 });
 theme = responsiveFontSizes(theme);
