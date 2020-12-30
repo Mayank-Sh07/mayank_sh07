@@ -5,10 +5,9 @@ import Home from "../src/components/Home";
 
 const useStyles = makeStyles({
   particleContainer: {
-    height: "100vh",
-    position: "absolute",
+    minHeight: "100vh",
+    position: "relative",
     top: 0,
-    zIndex: 200,
     pointerEvents: "none",
   },
 });
@@ -27,7 +26,7 @@ export default function LandingPage(): JSX.Element {
         className={classes.particleContainer}
       >
         <Particles
-          style={{ height: "inherit" }}
+          style={{ height: "inherit", position: "absolute", top: "0px" }}
           options={{
             background: {
               color: {
@@ -104,8 +103,8 @@ export default function LandingPage(): JSX.Element {
             detectRetina: true,
           }}
         />
+        <Home />
       </Container>
-      <Home />
     </>
   );
 }
