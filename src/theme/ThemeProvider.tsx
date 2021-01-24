@@ -1,4 +1,4 @@
-import { useState, createContext, ReactNode } from "react";
+import { useState, createContext } from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
 import getTheme from "./themes";
 
@@ -7,7 +7,7 @@ export const ThemeContext = createContext({
   setTheme: null,
 });
 
-const AppThemeProvider = (props: Record<string, unknown>): ReactNode => {
+const AppThemeProvider = (props: Record<string, unknown>): JSX.Element => {
   const { children } = props;
   let currentTheme = "light";
   if (typeof Storage !== "undefined") {
@@ -15,7 +15,7 @@ const AppThemeProvider = (props: Record<string, unknown>): ReactNode => {
   }
   const [themeName, _setThemeName] = useState(currentTheme);
   const theme = getTheme(themeName);
-  const setThemeName = (name: string): null => {
+  const setThemeName = (name: string): void => {
     if (typeof Storage !== "undefined") {
       localStorage.setItem("appTheme", name);
     }

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import Head from "next/head";
 import { AppProps } from "next/app";
-import AppThemeProvider from "../src/theme/ThemeProvider";
+import AppThemeProvider from "@/theme/ThemeProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import "../src/styles/global.css";
+import "@/styles/global.css";
 
-export default function App(props: AppProps): Record<string, unknown> {
+export default function App(props: AppProps): JSX.Element {
   const { Component, pageProps } = props;
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function App(props: AppProps): Record<string, unknown> {
   return (
     <>
       <Head>
-        <title>Mayank_Sh07</title>
+        <title>Mash07</title>
         <meta
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'

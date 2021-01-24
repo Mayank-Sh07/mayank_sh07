@@ -1,7 +1,7 @@
 import Particles from "react-tsparticles";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Home from "../src/components/Home";
+import Home from "@/components/LandingPage";
 
 const useStyles = makeStyles({
   particleContainer: {

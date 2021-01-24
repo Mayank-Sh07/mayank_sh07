@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { useContext } from "react";
-import { ThemeContext } from "../theme/ThemeProvider";
+import { ThemeContext } from "@/theme/ThemeProvider";
 import {
   makeStyles,
   Theme,
@@ -11,75 +12,96 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
 import Chip from "@material-ui/core/Chip";
 import Avatar from "@material-ui/core/Avatar";
-// import Grow from "@material-ui/core/Grow";
-// import Slide from "@material-ui/core/Slide";
-import LightThemeIcon from "@material-ui/icons/WbSunnyRounded";
+import Typography from "@material-ui/core/Typography";
 import DarkThemeIcon from "@material-ui/icons/Brightness2Rounded";
-import BlogIcon from "@material-ui/icons/CollectionsBookmarkRounded";
+import LightThemeIcon from "@material-ui/icons/WbSunnyRounded";
+import BlogIcon from "@material-ui/icons/BookRounded";
+import AboutIcon from "@material-ui/icons/PublicRounded";
+import WorkIcon from "@material-ui/icons/DeveloperBoardSharp";
 import AvailableIcon from "@material-ui/icons/Check";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(({ breakpoints, spacing, palette }: Theme) =>
   createStyles({
     noPointer: {
       pointerEvents: "none",
     },
     container: {
-      paddingTop: theme.spacing(8),
+      paddingTop: spacing(8),
+      [breakpoints.only("xs")]: {
+        paddingTop: spacing(4),
+      },
     },
     navBar: {
-      [theme.breakpoints.only("sm")]: {
-        padding: "0px 30px",
+      [breakpoints.only("sm")]: {
+        padding: spacing(0, 4),
+      },
+      [breakpoints.only("xs")]: {
+        paddingLeft: spacing(3),
+        paddingRight: spacing(2),
       },
     },
     themeBtn: {
       borderRadius: "4px",
-      backgroundColor: fade(theme.palette.secondary.light, 0.1),
+      backgroundColor: fade(palette.secondary.light, 0.1),
       "&:hover": {
-        backgroundColor: fade(theme.palette.secondary.light, 0.125),
+        backgroundColor: fade(palette.secondary.light, 0.125),
+      },
+      [breakpoints.only("xs")]: {
+        transform: `translateY(-8px)`,
       },
     },
     navItem: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
+      margin: spacing(0, 1),
       pointerEvents: "initial",
+      [breakpoints.only("xs")]: {
+        margin: "0px 2px",
+      },
     },
     linkBtn: {
       borderRadius: "4px",
       fontSize: "1.250em",
       fontWeight: 400,
       "&:hover": {
-        backgroundColor: fade(theme.palette.secondary.light, 0.125),
+        backgroundColor: fade(palette.secondary.light, 0.125),
         textDecoration: "underline",
       },
+      [breakpoints.only("xs")]: {
+        fontSize: "1rem",
+      },
+    },
+    linkBtnIcon: {
+      marginRight: "2px",
     },
     chip: {
-      backgroundColor: fade(theme.palette.secondary.light, 0.02),
-      [theme.breakpoints.down("sm")]: {
+      backgroundColor: fade(palette.secondary.light, 0.02),
+      [breakpoints.only("xs")]: {
         position: "fixed",
-        top: 30,
-        right: 30,
+        top: 15,
+        right: 12,
         zIndex: 1200,
       },
     },
     chipAvatar: {
-      backgroundColor: fade(theme.palette.success.main, 0.4),
+      backgroundColor: fade(palette.success.main, 0.4),
     },
     chipIcon: {
-      color: theme.palette.secondary.light,
+      color: palette.secondary.light,
       fontSize: "13px",
     },
     content: {
-      padding: "50px 150px 0px 100px",
-      [theme.breakpoints.only("sm")]: {
-        padding: "50px 100px 0px 100px",
+      padding: "48px 152px 0px 96px",
+      [breakpoints.only("sm")]: {
+        padding: "48px 96px 0px 104px",
+      },
+      [breakpoints.only("xs")]: {
+        padding: "24px 32px 0px 32px",
       },
     },
     overParticles: {
@@ -89,19 +111,28 @@ const useStyles = makeStyles((theme: Theme) =>
     introTitle: {
       fontWeight: 600,
       lineHeight: 1,
+      [breakpoints.only("xs")]: {
+        fontWeight: 500,
+        fontSize: "1.68rem",
+      },
     },
     introDescription: {
       fontWeight: 400,
       lineHeight: 1.4,
-      color: theme.palette.primary.contrastText,
-      [theme.breakpoints.only("sm")]: {
+      color: palette.primary.contrastText,
+      [breakpoints.only("sm")]: {
         fontWeight: 500,
-        lineHeight: 1.2,
+        lineHeight: 1.275,
         fontSize: "0.825rem",
+      },
+      [breakpoints.only("xs")]: {
+        fontWeight: 300,
+        lineHeight: 1.15,
+        fontSize: "0.7rem",
       },
     },
     iconContainer: {
-      [theme.breakpoints.up("md")]: {
+      [breakpoints.up("md")]: {
         position: "fixed",
         top: 0,
         right: 0,
@@ -116,7 +147,7 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: "transparent",
         paddingRight: 30,
       },
-      [theme.breakpoints.down("sm")]: {
+      [breakpoints.down("sm")]: {
         display: "none",
       },
     },
@@ -125,7 +156,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: "35px",
       pointerEvents: "initial",
       "&:hover": {
-        backgroundColor: fade(theme.palette.secondary.light, 0.225),
+        backgroundColor: fade(palette.secondary.light, 0.225),
         padding: "1px",
         borderRadius: "4px",
       },
@@ -133,10 +164,47 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Home(): JSX.Element {
+export default function LandingPage(): JSX.Element {
   const { currentTheme, setTheme } = useContext(ThemeContext);
   const isDark = Boolean(currentTheme === "dark");
   const classes = useStyles();
+  const appBarProps = {
+    position: "relative",
+    color: "transparent",
+    elevation: 0,
+  };
+
+  const ThemeButton = (): JSX.Element => (
+    <IconButton
+      color='secondary'
+      className={classes.navItem}
+      classes={{ root: classes.themeBtn }}
+      onClick={() => {
+        isDark ? setTheme("light") : setTheme("dark");
+      }}
+    >
+      {isDark ? (
+        <LightThemeIcon />
+      ) : (
+        <DarkThemeIcon style={{ transform: `rotateZ(145deg)` }} />
+      )}
+    </IconButton>
+  );
+
+  const LinkButton = ({ icon, label, path }): JSX.Element => (
+    <Link href={path}>
+      <Button
+        color='secondary'
+        size='small'
+        className={classes.navItem}
+        classes={{ root: classes.linkBtn, startIcon: classes.linkBtnIcon }}
+        startIcon={icon}
+      >
+        {label}
+      </Button>
+    </Link>
+  );
+
   return (
     <>
       <Container
@@ -146,64 +214,17 @@ export default function Home(): JSX.Element {
       >
         <Grid container>
           <Grid item xs={12}>
-            <AppBar
-              position='relative'
-              color='transparent'
-              elevation={0}
-              className={classes.noPointer}
-            >
+            <AppBar {...appBarProps} className={classes.noPointer}>
               <Toolbar className={clsx(classes.noPointer, classes.navBar)}>
-                {/* <Slide in={true} timeout={1000} direction='down'> */}
-                <IconButton
-                  color='secondary'
-                  className={classes.navItem}
-                  classes={{ root: classes.themeBtn }}
-                  onClick={() => {
-                    isDark ? setTheme("light") : setTheme("dark");
-                  }}
-                >
-                  {isDark ? (
-                    <LightThemeIcon />
-                  ) : (
-                    <DarkThemeIcon style={{ transform: `rotateZ(145deg)` }} />
-                  )}
-                </IconButton>
-                {/* </Slide> */}
+                <ThemeButton />
                 <div style={{ flexGrow: 1 }} className={classes.noPointer} />
-                {/* <Slide in={true} direction={"down"} timeout={1000}> */}
-                <Button
-                  color='secondary'
-                  size='small'
-                  className={classes.navItem}
-                  classes={{ root: classes.linkBtn }}
-                  startIcon={<BlogIcon />}
-                >
-                  Blog
-                </Button>
-                {/* </Slide> */}
-                {/* <Slide in={true} direction={"down"} timeout={1000}> */}
-                <Button
-                  color='secondary'
-                  size='small'
-                  className={classes.navItem}
-                  classes={{ root: classes.linkBtn }}
-                  startIcon={<BlogIcon />}
-                >
-                  Blog
-                </Button>
-                {/* </Slide> */}
-                {/* <Slide in={true} direction={"down"} timeout={1000}> */}
-                <Button
-                  color='secondary'
-                  size='small'
-                  className={classes.navItem}
-                  classes={{ root: classes.linkBtn }}
-                  startIcon={<BlogIcon />}
-                >
-                  Blog
-                </Button>
-                {/* </Slide> */}
-                {/* <Slide in={true} direction={"down"} timeout={1000}> */}
+                <LinkButton
+                  path='/About'
+                  icon={<AboutIcon style={{ transform: `rotateZ(180deg)` }} />}
+                  label='About'
+                />
+                <LinkButton path='/Work' icon={<WorkIcon />} label='Work' />
+                <LinkButton path='/Blog' icon={<BlogIcon />} label='Blog' />
                 <Chip
                   variant='outlined'
                   size='small'
@@ -216,7 +237,6 @@ export default function Home(): JSX.Element {
                   }
                   label='available'
                 />
-                {/* </Slide> */}
               </Toolbar>
             </AppBar>
           </Grid>
@@ -225,7 +245,6 @@ export default function Home(): JSX.Element {
             xs={12}
             className={clsx(classes.content, classes.noPointer)}
           >
-            {/* <Grow in={true} timeout={1500}> */}
             <Typography
               variant='h3'
               className={clsx(
@@ -237,8 +256,6 @@ export default function Home(): JSX.Element {
             >
               Hey, I&apos;m Mayank Sharma
             </Typography>
-            {/* </Grow> */}
-            {/* <Grow in={true} timeout={3000}> */}
             <Typography
               variant='body1'
               className={clsx(
@@ -251,17 +268,14 @@ export default function Home(): JSX.Element {
               college undergrad. I study Computer Science and Engineering at VIT
               and I have a deep love for tech, innovation and design.
             </Typography>
-            {/* </Grow> */}
           </Grid>
         </Grid>
       </Container>
-      {/* <Grow in={true} timeout={3800}> */}
       <div className={classes.iconContainer}>
         <InstagramIcon className={classes.socialIcon} />
         <GitHubIcon className={classes.socialIcon} />
         <LinkedInIcon className={classes.socialIcon} />
       </div>
-      {/* </Grow> */}
     </>
   );
 }
